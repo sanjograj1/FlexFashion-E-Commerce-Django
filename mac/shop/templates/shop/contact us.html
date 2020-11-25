@@ -1,9 +1,18 @@
 {% extends 'shop/basic.html' %}
 {%block title%}Contact Us{%endblock%}
 {%block body%}
-<div class="container my-3">
+{%for message in messages %}
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+  <strong>Thank you for contacting us! </strong>{{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+  {% endfor %}
+
+<div class="container my-4">
     <h3>Contact Us</h3>
-    <form action="/shop/contactus" method="POST">{% csrf_token %}
+    <form action="contactus" method="post">{% csrf_token %}
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name='name' placeholder="Enter Your Name">
@@ -18,5 +27,23 @@
     <input type="tel" class="form-control" id="number" name='number' placeholder="Enter Your Phone Number">
   </div>
       <button type="submit" class="btn btn-success">Submit</button>
-</form>
+    </form>
+
+
+</div>
+
+
+
+{%endblock%}
+{%block js%}
+<script>
+if (localStorage.getItem('cart')==null)
+{
+var cart={};
+}
+else{
+cart=JSON.parse(localStorage.getItem('cart'))
+}
+document.getElementById('cart').innerHTML=Object.keys(cart).length
+</script>
 {%endblock%}

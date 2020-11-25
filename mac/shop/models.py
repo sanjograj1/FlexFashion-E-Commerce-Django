@@ -14,7 +14,7 @@ class product(models.Model):
         return self.product_name
 
 class Contact(models.Model):
-    id = models.AutoField(primary_key=True)
+
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=70, default="")
     number = models.CharField(max_length=70, default="")
@@ -22,3 +22,20 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+
+    items=models.CharField(max_length=1000)
+    city=models.CharField(max_length=40)
+    zip=models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
+    state = models.CharField(max_length=30)
+    phone=models.IntegerField(default="")
+    email = models.EmailField(max_length=50)
+    address = models.CharField(max_length=90)
+
+class updateorder(models.Model):
+    orderId=models.IntegerField(default="")
+
+    updatedesc=models.CharField(max_length=300)
+    time=models.DateField(auto_now_add=True)

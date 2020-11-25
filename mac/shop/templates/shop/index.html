@@ -57,9 +57,11 @@
 </div>
 <div class=" my-4 container" >
   {%for pro,range,slides in allprods %}
+    <div class="container my-4">
       <h3 style="
     text-transform: capitalize;
 ">{{pro.0.category}}-new arrival</h3>
+    </div>
       <div class="row">
     <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">'
         <ul class="carousel-indicators">
@@ -80,10 +82,12 @@
               <div class="card" style="width: 18rem;">
                 <img src='/media/{{i.image}}' class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">{{i.product_name}}</h5>
+                  <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
                   <p class="card-text">{{i.desc}}</p>
+                    <span id="divpr{{i.id}}" class="di">
                   <button id="pr{{i.id}}"  type="button" class="btn btn-dark cart">Add to cart</button>
-                   <a href="/shop/productview/{{i.id}}"><button id="pv{{i.id}}" type="button" class="btn btn-dark">View</button></a>
+                    </span>
+                   <a href="productview/{{i.id}}"><button id="pv{{i.id}}" type="button" class="btn btn-dark">View</button></a>
                 </div>
               </div>
             </div>
@@ -113,6 +117,7 @@
 {%endblock%}
 {%block js%}
 <script>
+//setting local storage
 if (localStorage.getItem('cart')==null)
 {
 var cart={};
@@ -120,23 +125,104 @@ var cart={};
 else{
 cart=JSON.parse(localStorage.getItem('cart'))
 document.getElementById('cart').innerHTML = Object.keys(cart).length;
-}
-$('.cart').click(function()
-{
+update(cart)
 
+//click function to addcart
+}
+ $('.di').on('click', 'button.cart', function(){
 var idstr= this.id.toString();
 if (cart[idstr]!= undefined){
-cart[idstr]=cart[idstr]+1;
+qty=cart[idstr][0]+1
+cart[idstr]=[qty,name]
+console.log(idstr)
 }
 else{
-cart[idstr]=1
+qty=1
+name=document.getElementById('namepr'+idstr.slice(2,)).innerHTML
+cart[idstr]=[qty,name]
 }
-
-localStorage.setItem('cart',JSON.stringify(cart))
-document.getElementById('cart').innerHTML = Object.keys(cart).length;
+console.log(idstr.slice(2,))
+update(cart)
+popover(cart)
 
 });
-$('#popcart').popover('show')
+
+//clear cart and checkout
+function clearcart(){
+console.log("clear cart called")
+
+    for (item in cart){
+      document.getElementById('div' + item).innerHTML ='<button id="' + item + '" class="btn btn-dark cart">Add To Cart</button>'
+    localStorage.clear();
+    cart={}
+    update(cart)
+    popover(cart)
+    }
+    }
+
+
+//creating popover
+
+
+popover(cart)
+function popover(cart) {
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Your cart items are- </h5><div class='mx-2 my-2'>";
+    var i = 1;
+    for (var item in cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div> <a href='/checkout'><button class='btn btn-dark' id ='checkout'>Checkout</button></a> <button class='btn btn-dark' onclick='clearcart()' id ='clearCart'>Clear Cart</button>     "
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover({
+    trigger: 'focus'
+    });
+}
+//update cart
+function update(cart) {
+    for (var item in cart) {
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-dark minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-dark plus'> + </button>";
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    console.log(cart);
+}
+
+//minus button
+$('.di').on("click","button.minus",function(){
+    a=this.id.slice(7,)
+    cart['pr'+a][0]=cart['pr'+a][0]-1;
+    cart['pr'+a][0]=Math.max(0,cart['pr'+a][0])
+    document.getElementById('valpr'+a).innerHTML=cart['pr' + a][0];
+    if (cart['pr'+a][0]==0){
+    delete cart['pr'+a]
+    location.reload()
+  for (item in cart){
+      document.getElementById('div' + item).innerHTML ='<button id="' + item + '" class="btn btn-dark cart">Add To Cart</button>'
+
+update(cart);
+}
+}
+    update(cart);
+    popover(cart)
+})
+
+//plus button
+$('.di').on("click","button.plus",function(){
+    a=this.id.slice(6,)
+    cart['pr'+a][0]=cart['pr'+a][0]+1;
+    document.getElementById('valpr'+a).innerHTML=cart['pr'+ a][0]
+    update(cart);
+    popover(cart);
+
+
+
+})
+
 
 
 

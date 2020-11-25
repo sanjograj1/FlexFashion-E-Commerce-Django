@@ -1,2 +1,86 @@
 {% extends 'shop/basic.html' %}
 {%block title%}Tracker{%endblock%}
+
+
+
+
+{% block body %}
+<div class="container my-5">
+	<div class="col">
+    <h2>->Track your order here-</h2>
+        <form action="tracker" method="post" id="trackerform">
+      {% csrf_token %}
+
+	<div class="col my-4">
+      <input type="hidden" name="items" id="items">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="orderId">Order ID</label>
+      <input type="text" name="orderId" class="form-control" id="orderId">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="email">Email</label>
+      <input type="email"  name="email" class="form-control" id="email">
+
+    </div>
+      <button type="submit" class="btn btn-info">Submit</button>
+  </div>
+
+
+    </div></form>
+</div>
+</div>
+<div class="container my-5">
+	<div class="col">
+    <h2>->Here's the status of your order-</h2>
+    <div class="col my-4">
+    <ul class="list-group" id='ite'>
+
+</ul>
+</div>
+</div>
+</div>
+
+
+
+{%endblock%}
+{% block js %}
+<script >
+
+$('#trackerform').submit(function(event){
+$('ite').empty();
+
+
+var formdata={
+'orderId':$('input[name=orderId]').val(),
+'email':$('input[name=email]').val(),
+'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
+}
+
+$.ajax({
+type:'POST',
+url:'/tracker',
+data:formdata,
+dataType:"json",
+encoder:true
+})
+
+.done(function(data){
+console.log(data)
+})
+
+
+event.preventDefault()
+})
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}
+
+
