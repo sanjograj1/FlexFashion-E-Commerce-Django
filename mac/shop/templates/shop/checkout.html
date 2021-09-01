@@ -55,7 +55,7 @@
       <label for="inputZip">Zip</label>
       <input  name="zip" type="text" class="form-control" id="inputZip">
     </div>
-      <button type="submit" class="btn btn-info">Place order</button>
+      <button type="submit" class="btn btn-info">Place</button>
   </div>
 
     </div></form>
@@ -91,7 +91,7 @@ $('#items').val(JSON.stringify(cart))
 {% if thank %}
 alert('Thankyou from ordering from us.Your order id is {{id}}.Please use it to track your order')
 localStorage.clear()
-window.location.href = "http://127.0.0.1:8000/"
+window.location.href = "http://127.0.0.1:8000/shop"
 {% endif %}
 
 

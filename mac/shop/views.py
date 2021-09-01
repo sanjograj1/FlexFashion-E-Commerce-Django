@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import product,Contact,Order,updateorder
+from rest_framework.response import Response
+from .models import product,Contact,Order,updateorder,men,women,accessories
 from django.contrib import messages
+from rest_framework import status
 from math import ceil
 import json
 
@@ -26,6 +28,7 @@ def index(request):
 def about(request):
     return render(request, 'shop/about.html')
 
+
 def contactus(request):
     if request.method == 'POST':
         name = request.POST['name']
@@ -36,6 +39,24 @@ def contactus(request):
         print('use created')
         messages.info(request, "We'll get in touch with you soon.")
     return render(request, 'shop/contact us.html')
+
+def menview(request,myid):
+    pros = men.objects.filter(id=myid)
+    print(pros)
+    return render(request, 'shop/menview.html',{'pros':pros[0]})
+
+
+def womenview(request,myid):
+    pros = women.objects.filter(id=myid)
+    print(pros)
+    return render(request, 'shop/womenview.html',{'pros':pros[0]})
+
+def accessoryview(request,myid):
+    pros = accessories.objects.filter(id=myid)
+    print(pros)
+    return render(request, 'shop/accessoryview.html',{'pros':pros[0]})
+
+
 
 def productview(request,myid):
     pros = product.objects.filter(id=myid)
@@ -88,4 +109,57 @@ def checkout(request):
         return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})
     return render(request, 'shop/checkout.html')
 
+def menn(request):
+    pros=men.objects.all()
+    n=len(pros)
+    slides=n//4 +ceil((n/4)-(n//4))
+    allprods=[]
+    cats=men.objects.values('category','id')
+    cat={item['category'] for item in cats}
+    for cat in cat:
+        pro = men.objects.filter(category=cat)
+        print(pro)
+        n = len(pro)
+        slides = n // 4 + ceil((n / 4) - (n // 4))
 
+        allprods.append([pro,range(0,slides),slides])
+    context={'allprods':allprods}
+    return render(request,'shop/men.html',context)
+
+def womenn(request):
+    pros=women.objects.all()
+    n=len(pros)
+    slides=n//4 +ceil((n/4)-(n//4))
+    allprods=[]
+    cats=women.objects.values('category','id')
+    cat={item['category'] for item in cats}
+    for cat in cat:
+        pro = women.objects.filter(category=cat)
+        print(pro)
+        n = len(pro)
+        slides = n // 4 + ceil((n / 4) - (n // 4))
+
+        allprods.append([pro,range(0,slides),slides])
+    context={'allprods':allprods}
+    return render(request,'shop/women.html',context)
+
+def accessory(request):
+    pros=accessories.objects.all()
+    n=len(pros)
+    slides=n//4 +ceil((n/4)-(n//4))
+    allprods=[]
+    cats=accessories.objects.values('category','id')
+    cat={item['category'] for item in cats}
+    for cat in cat:
+        pro = accessories.objects.filter(category=cat)
+        print(pro)
+        n = len(pro)
+        slides = n // 4 + ceil((n / 4) - (n // 4))
+
+        allprods.append([pro,range(0,slides),slides])
+    context={'allprods':allprods}
+    return render(request,'shop/accessories.html',context)
+
+
+def login(request):
+    return render(request, 'shop/login.html')

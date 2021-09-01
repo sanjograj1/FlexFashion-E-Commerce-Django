@@ -1,30 +1,165 @@
 {% extends 'shop/basic.html' %}
 {% block title %}About{%endblock%}
 {%block body%}
-<main role="main">
-
-  <!-- Main jumbotron for a primary marketing message or call to action -->
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-3">Shop.com</h1>
-      <p>Welcome to shop.com by Sanjograj Singh</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-    </div>
-  </div>
 
 
+  <body>
 
-</main>
+      <div class="container my-4">
+      <div class="row featurette d-flex justify-content-center align-items-center">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">FlexFashion since 2017 <span class="text-muted">,</span></h2>
+          <p class="lead">"Style is a way to say who you are without having to speak"</p>
+        </div>
+        <div class="col-md-5">
+          <img src="https://media.istockphoto.com/photos/high-fashion-woman-in-colorful-bright-neon-uv-blue-and-purple-lights-picture-id1175111436?k=6&m=1175111436&s=170667a&w=0&h=XWyCkXFxhKljCVcJ6u4f0sQQXOVWKsZRJxPyqFCb9Rw=" width="400" height="400">
+
+        </div>
+      </div>
+      <div class="row featurette d-flex justify-content-center align-items-center">
+        <div class="col-md-7 order-md-1">
+          <h2 class="featurette-heading">Francis Bacon<span class="text-muted">,</span></h2>
+          <p class="lead">"Fashion is only the attempt to realize art in living forms and social intercourse"</p>
+        </div>
+        <div class="col-md-5">
+          <img src="https://www.fashionisland.co.th/en/wp-content/uploads/sites/2/2020/10/ikon-fashion-island-01.jpg" width="400" height="400">
+
+        </div>
+      </div>
+      <div class="row featurette d-flex justify-content-center align-items-center">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Karen Smith<span class="text-muted"> ,</span></h2>
+          <p class="lead">"On Wednesdays, we wear pink."</p>
+        </div>
+        <div class="col-md-5">
+          <img src="https://2.bp.blogspot.com/-7Yqyc3aNe_8/UaQvGZhT0nI/AAAAAAAAEHU/HRRGkQnGzqw/s1600/IMG_0319.JPG" width="400" height="400" >
+
+        </div>
+      </div>
+      </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    -->
+  </body>
+
 {%endblock%}
 {%block js%}
 <script>
+//setting local storage
 if (localStorage.getItem('cart')==null)
 {
 var cart={};
 }
 else{
 cart=JSON.parse(localStorage.getItem('cart'))
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+update(cart)
+
+//click function to addcart
 }
-document.getElementById('cart').innerHTML=Object.keys(cart).length
+ $('.di').on('click', 'button.cart', function(){
+var idstr= this.id.toString();
+if (cart[idstr]!= undefined){
+qty=cart[idstr][0]+1
+cart[idstr]=[qty,name]
+console.log(idstr)
+}
+else{
+qty=1
+name=document.getElementById('namepr'+idstr.slice(2,)).innerHTML
+cart[idstr]=[qty,name]
+}
+console.log(idstr.slice(2,))
+update(cart)
+popover(cart)
+
+});
+
+//clear cart and checkout
+function clearcart(){
+console.log("clear cart called")
+
+    for (item in cart){
+      document.getElementById('div' + item).innerHTML ='<button id="' + item + '" class="btn btn-dark cart">Add To Cart</button>'
+    localStorage.clear();
+    cart={}
+    update(cart)
+    popover(cart)
+    }
+    }
+
+
+//creating popover
+
+
+popover(cart)
+function popover(cart) {
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Your cart items are- </h5><div class='mx-2 my-2'>";
+    var i = 1;
+    for (var item in cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div> <a href='http://127.0.0.1:8000/shop/checkout'><button class='btn btn-dark' id ='checkout'>Checkout</button></a> <button class='btn btn-dark' onclick='clearcart()' id ='clearCart'>Clear Cart</button>     "
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover({
+    trigger: 'focus'
+    });
+}
+//update cart
+function update(cart) {
+    for (var item in cart) {
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-dark minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-dark plus'> + </button>";
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    console.log(cart);
+}
+
+//minus button
+$('.di').on("click","button.minus",function(){
+    a=this.id.slice(7,)
+    cart['pr'+a][0]=cart['pr'+a][0]-1;
+    cart['pr'+a][0]=Math.max(0,cart['pr'+a][0])
+    document.getElementById('valpr'+a).innerHTML=cart['pr' + a][0];
+    if (cart['pr'+a][0]==0){
+    delete cart['pr'+a]
+    location.reload()
+  for (item in cart){
+      document.getElementById('div' + item).innerHTML ='<button id="' + item + '" class="btn btn-dark cart">Add To Cart</button>'
+
+update(cart);
+}
+}
+    update(cart);
+    popover(cart)
+})
+
+//plus button
+$('.di').on("click","button.plus",function(){
+    a=this.id.slice(6,)
+    cart['pr'+a][0]=cart['pr'+a][0]+1;
+    document.getElementById('valpr'+a).innerHTML=cart['pr'+ a][0]
+    update(cart);
+    popover(cart);
+
+
+
+})
+
+
 </script>
 {%endblock%}

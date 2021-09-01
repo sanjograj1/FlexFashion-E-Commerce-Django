@@ -39,3 +39,30 @@ class updateorder(models.Model):
 
     updatedesc=models.CharField(max_length=300)
     time=models.DateField(auto_now_add=True)
+
+class men(models.Model):
+    product_id=models.AutoField
+    category=models.CharField(max_length=50,default="")
+    price=models.IntegerField(default=0)
+    product_name=models.CharField(max_length=30)
+    desc=models.CharField(max_length=50)
+    date=models.DateField()
+    image=models.ImageField(upload_to='shop/images',default="")
+
+class women(models.Model):
+    product_id=models.AutoField
+    category=models.CharField(max_length=50,default="")
+    price=models.IntegerField(default=0)
+    product_name=models.CharField(max_length=30)
+    desc=models.CharField(max_length=50)
+    date=models.DateField()
+    image=models.ImageField(upload_to='shop/images',default="")
+
+class accessories(models.Model):
+    product_id=models.AutoField
+    category=models.CharField(max_length=50,default="")
+    price=models.IntegerField(default=0)
+    product_name=models.CharField(max_length=30)
+    desc=models.CharField(max_length=50)
+    date=models.DateField()
+    image=models.ImageField(upload_to='shop/images',default="")

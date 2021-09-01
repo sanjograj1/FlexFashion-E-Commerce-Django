@@ -1,0 +1,109 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="signin.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/THC1111/flex-fashion-/main/hhhh.jpg"/>
+    <title>{% block title %} {%endblock%}</title>
+      <style>
+
+ .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style><div>{% for message in messages%}
+  <div class="alert alert-warning d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24"><use xlink:href="#exclamation-triangle-fill"/></svg>
+  <div>
+   {{message}}
+  </div>
+</div>
+    {% endfor %}
+  </div>
+<body  class="text-center bg">
+
+
+<div class="container my-4">
+<main class="form-signin">
+  <form action="register" method="post">
+      {% csrf_token %}
+    {% csrf_token %}
+    <img class="mb-4" src="https://raw.githubusercontent.com/THC1111/flex-fashion-/main/hhhh.jpg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input type="text"  name="first_name"  class="form-control" id="firstname1" placeholder="First_name">
+      <label for="firstname1">First Name</label>
+    </div>
+      <div class="form-floating">
+      <input type="text"  name="last_name"  class="form-control" id="lastname1" placeholder="Last_name">
+      <label for="lastname1">Last Name</label>
+    </div>
+      <div class="form-floating">
+      <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+      <label for="username">Username</label>
+    </div>
+      <div class="form-floating">
+      <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+      <label for="email">Email</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password" class="form-control" id="Password" placeholder="Password">
+      <label for="Password">Password</label>
+    </div>
+      <div class="form-floating">
+      <input type="password" name="confirmpassword" class="form-control" id="Password1" placeholder="Confirm Password">
+      <label for="Password1">ConfirmPassword</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">FlexFashion&copy;2017–2021</p>
+  </form>
+</main>
+</div>
+
+
+
+  </body>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</html>

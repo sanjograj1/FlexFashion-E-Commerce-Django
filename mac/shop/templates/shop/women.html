@@ -1,0 +1,296 @@
+{% extends 'shop/basic.html' %}
+{% block style %}
+.col-md-3
+          {
+          display: inline-block;
+          margin-left:-4px;
+          }
+
+          .carousel-indicators .active {
+          background-color: black;
+            }
+
+          .col-md-3 img{
+
+          min-width: 227px;
+          height: 200px;
+          }
+
+
+          body .carousel-indicator li{
+          background-color: black;
+          }m
+
+          body .carousel-indicators{
+          bottom: 0;
+          }
+
+
+          body .carousel-control-prev-icon,
+          body .carousel-control-next-icon{
+          background-color: black;
+          }
+          body.container{
+          text-transform: capitalize;
+          }
+
+          .ignore-css{all:unset;}
+
+          #video{
+  object-fit: initial;
+  width: 1950px;
+  height: 657px;
+}
+
+
+          .carousel-control-prev,
+          .carousel-control-next{
+          top: auto;
+          bottom: auto;
+          padding-top:225px;
+          }
+           body .no-padding{
+           padding-left: 0,
+           padding-right: 0;
+           }
+{%endblock%}
+
+
+{%block body%}
+
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <strong>Welcome to Shop!</strong> Check out latest brands.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
+
+    <div class="ignore-css">
+
+ <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="1" class=""></li>
+
+        </ol>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://content.very.co.uk/assets/static/2021/04/zonepages/19-zonepages/19-womens-zone/mobile/03.jpg"  width="500" height="657" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+
+              <p>FASHION IS LIKE EATING, YOU SHOULDN'T STICK TO THE SAME MENU</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://k.nooncdn.com/cms/pages/20201109/96e753dab2b72a65db8af3134bbbee19/en_mweb_women.png" width="500" height="657" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+ <a href="http://127.0.0.1:8000/shop/menn"><button type="button" class="btn btn-info">MEN</button></a>
+                <a href="http://127.0.0.1:8000/shop/womenn">  <button type="button" class="btn btn-success">WOMEN</button></a>
+              <p>CREATE YOUR OWN STYLE</p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prevv" href="#carouselExampleCaptions" role="button" data-slide="prev">
+          <span class="carousel-control-prev-iconn" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-nextt" href="#carouselExampleCaptions" role="button" data-slide="next">
+          <span class="carousel-control-next-iconn" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+</div>
+</div>
+
+
+<div class=" my-4 container" >
+
+    <div class="container my-4">
+      <h3 style="
+    text-transform: capitalize;
+    font-family: Monaco;
+"><strong><i>SHOP FOR WOMEN</i></strong></h3>
+    </div>
+    {%for pro,range,slides in allprods %}
+      <div class="row">
+    <div id="demo{{forloop.counter}}" class="col carousel slide mx-10 " data-ride="carousel">'
+        <ul class="carousel-indicators">
+            <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+    {% for i in range %}
+       <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
+    {% endfor %}
+</ul>
+
+<!--        slideshow starts here-->
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+
+
+            {% for i in pro|slice:"0:" %}
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <div class="card" style="width: 18rem;">
+                <img src='/media/{{i.image}}' class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
+                  <p class="card-text">{{i.desc}}</p>
+                    <span id="divpr{{i.id}}" class="di">
+                  <button id="pr{{i.id}}"  type="button" class="btn btn-dark cart">Add to cart</button>
+                    </span>
+                   <a href="womenview/{{i.id}}"><button id="pv{{i.id}}" type="button" class="btn btn-dark">View</button></a>
+                </div>
+              </div>
+            </div>
+
+            {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+             </div><div class="carousel-item">
+            {% endif%}
+
+            {% endfor %}
+      </div>
+
+      </div>
+        </div>
+
+
+
+      </div>
+  {% endfor %}
+</div>
+<div class="bg-dark text-secondary px-1 py-3 text-center">
+  <div class="py-2">
+    <h1 class="display-5 fw-bold text-white">Connect With Us</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="fs-5 mb-4">© 2017–2021 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a><</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">+91 9999899851</button>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}
+{%block js%}
+<script>
+//setting local storage
+if (localStorage.getItem('cart')==null)
+{
+var cart={};
+}
+else{
+cart=JSON.parse(localStorage.getItem('cart'))
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+update(cart)
+
+//click function to addcart
+}
+ $('.di').on('click', 'button.cart', function(){
+var idstr= this.id.toString();
+if (cart[idstr]!= undefined){
+qty=cart[idstr][0]+1
+cart[idstr]=[qty,name]
+console.log(idstr)
+}
+else{
+qty=1
+name=document.getElementById('namepr'+idstr.slice(2,)).innerHTML
+cart[idstr]=[qty,name]
+}
+console.log(idstr.slice(2,))
+update(cart)
+popover(cart)
+
+});
+
+//clear cart and checkout
+function clearcart(){
+console.log("clear cart called")
+
+    for (item in cart){
+      document.getElementById('div' + item).innerHTML ='<button id="' + item + '" class="btn btn-dark cart">Add To Cart</button>'
+    localStorage.clear();
+    cart={}
+    update(cart)
+    popover(cart)
+    }
+    }
+
+
+//creating popover
+
+
+popover(cart)
+function popover(cart) {
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Your cart items are- </h5><div class='mx-2 my-2'>";
+    var i = 1;
+    for (var item in cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div> <a href='http://127.0.0.1:8000/shop/checkout'><button class='btn btn-dark' id ='checkout'>Checkout</button></a> <button class='btn btn-dark' onclick='clearcart()' id ='clearCart'>Clear Cart</button>     "
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover({
+    trigger: 'focus'
+    });
+}
+//update cart
+function update(cart) {
+    for (var item in cart) {
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-dark minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-dark plus'> + </button>";
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    console.log(cart);
+}
+
+//minus button
+$('.di').on("click","button.minus",function(){
+    a=this.id.slice(7,)
+    cart['pr'+a][0]=cart['pr'+a][0]-1;
+    cart['pr'+a][0]=Math.max(0,cart['pr'+a][0])
+    document.getElementById('valpr'+a).innerHTML=cart['pr' + a][0];
+    if (cart['pr'+a][0]==0){
+    delete cart['pr'+a]
+    location.reload()
+  for (item in cart){
+      document.getElementById('div' + item).innerHTML ='<button id="' + item + '" class="btn btn-dark cart">Add To Cart</button>'
+
+update(cart);
+}
+}
+    update(cart);
+    popover(cart)
+})
+
+//plus button
+$('.di').on("click","button.plus",function(){
+    a=this.id.slice(6,)
+    cart['pr'+a][0]=cart['pr'+a][0]+1;
+    document.getElementById('valpr'+a).innerHTML=cart['pr'+ a][0]
+    update(cart);
+    popover(cart);
+
+
+
+})
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+{%endblock%}

@@ -8,6 +8,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="signin.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/THC1111/flex-fashion-/main/ff%20favicon%203.jpg">
     <title>{% block title %} {%endblock%}</title>
 
       <style>{%block style%}
@@ -20,7 +23,7 @@
 {%load static%}
     <!--  navigation bar code starts here-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="http://127.0.0.1:8000/">Shop.com</a>
+  <a class="navbar-brand" href="http://127.0.0.1:8000/shop">FlexFashion</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -28,29 +31,40 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
-        <a class="nav-link" href="http://127.0.0.1:8000/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="http://127.0.0.1:8000/shop">Home <span class="sr-only">(current)</span></a>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="/about">About us</a>
+        <a class="nav-link" href="http://127.0.0.1:8000/shop/about">About us</a>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="/contactus">Contact us</a>
+        <a class="nav-link" href="http://127.0.0.1:8000/shop/contactus">Contact us</a>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="/tracker">Tracker</a>
+        <a class="nav-link" href="http://127.0.0.1:8000/shop/tracker">Tracker</a>
       </li>
+      {% if user.is_authenticated %}
+      <li><span style="font-size:20px ;color: #ffffff; position: absolute; right: 49%; height:99%">Welcome back! {{user.first_name}}</span></li>>
+       <button style="position: absolute; right: 6.5%; height:68%"  class="btn btn-outline-info my-2 my-sm-0 " type="submit" ><a class="nav-link" href="/logout"><span style="color: #ffffff">Logout</span></a></button>
+
+
+      {% else %}
+      <button  style="position: absolute; right: 6%; height:68%" class="btn btn-outline-success my-2 my-sm-0 mr-sm-2 " type="submit" ><a class="nav-link" href="/register"><span style="color: #ffffff">Register</span></a></button>
+      <button  style="position: absolute; right: 11.5%; height:68%" class="btn btn-outline-success my-2 my-sm-0 mr-sm-2 " type="submit" ><a class="nav-link" href="/login"><span style="color: #ffffff">Login</span></a></button>
+      {% endif %}
 
 
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2 " type="submit" ><a class="nav-link" href="/shop/search"><span style="color: #ffffff">Search</span></a></button>
-      <button type="button" data-html="true" class="btn btn-outline-info my-2 my-sm-0" data-container="body" id="popcart" data-toggle="popover" data-placement="bottom" data-content="Click to see the items in your cart"><a class="nav-link" href="#"><span style="color: #ffffff">Cart</span><span style="color: #ffffff" id="cart">0</span></a>
+
+
+
+      <button type="button" data-html="true" class="btn btn-outline-info my-2 my-sm-0" data-container="body" id="popcart" data-toggle="popover" data-placement="bottom" data-content="Click to see the items in your cart"><a class="nav-link" href="#"><span style="color: #ffffff">Cart</span><span style="color: #ffffff" id="cart">(0)</span></a>
 </button>
 
     </form>
   </div>
 </nav>
+
 <body>
 {%block body%} {%endblock%}
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
